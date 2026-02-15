@@ -1,11 +1,11 @@
-import type { Bird } from "../types";
+import type { Bird } from '../types';
 
 export const birds: Bird[] = [
   {
-    id: "arctic-tern",
-    name: "Arctic Tern",
-    scientificName: "Sterna paradisaea",
-    color: "#3b82f6",
+    id: 'arctic-tern',
+    name: 'Arctic Tern',
+    scientificName: 'Sterna paradisaea',
+    color: '#3b82f6',
     route: [
       { coordinates: [-8, 71], month: 0 },
       { coordinates: [-20, 65], month: 1 },
@@ -22,10 +22,10 @@ export const birds: Bird[] = [
     ],
   },
   {
-    id: "bar-tailed-godwit",
-    name: "Bar-tailed Godwit",
-    scientificName: "Limosa lapponica",
-    color: "#ef4444",
+    id: 'bar-tailed-godwit',
+    name: 'Bar-tailed Godwit',
+    scientificName: 'Limosa lapponica',
+    color: '#ef4444',
     route: [
       { coordinates: [172, 64], month: 0 },
       { coordinates: [172, 64], month: 1 },
@@ -42,10 +42,10 @@ export const birds: Bird[] = [
     ],
   },
   {
-    id: "white-stork",
-    name: "White Stork",
-    scientificName: "Ciconia ciconia",
-    color: "#f59e0b",
+    id: 'white-stork',
+    name: 'White Stork',
+    scientificName: 'Ciconia ciconia',
+    color: '#f59e0b',
     route: [
       { coordinates: [10, 52], month: 0 },
       { coordinates: [10, 52], month: 1 },
@@ -62,10 +62,10 @@ export const birds: Bird[] = [
     ],
   },
   {
-    id: "ruby-throated-hummingbird",
-    name: "Ruby-throated Hummingbird",
-    scientificName: "Archilochus colubris",
-    color: "#10b981",
+    id: 'ruby-throated-hummingbird',
+    name: 'Ruby-throated Hummingbird',
+    scientificName: 'Archilochus colubris',
+    color: '#10b981',
     route: [
       { coordinates: [-85, 20], month: 0 },
       { coordinates: [-85, 20], month: 1 },
@@ -82,10 +82,10 @@ export const birds: Bird[] = [
     ],
   },
   {
-    id: "barn-swallow",
-    name: "Barn Swallow",
-    scientificName: "Hirundo rustica",
-    color: "#8b5cf6",
+    id: 'barn-swallow',
+    name: 'Barn Swallow',
+    scientificName: 'Hirundo rustica',
+    color: '#8b5cf6',
     route: [
       { coordinates: [20, -25], month: 0 },
       { coordinates: [20, -25], month: 1 },
@@ -105,10 +105,10 @@ export const birds: Bird[] = [
 
 export function getDefaultVisibility(): Record<string, boolean> {
   return {
-    "arctic-tern": true,
-    "bar-tailed-godwit": true,
-    "white-stork": false,
-    "ruby-throated-hummingbird": false,
-    "barn-swallow": false,
+    'arctic-tern': true,
+    'barn-swallow': true,
+    'white-stork': true,
+    'bar-tailed-godwit': false,
+    'ruby-throated-hummingbird': false,
   };
 }

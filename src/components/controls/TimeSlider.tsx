@@ -1,19 +1,19 @@
-import { Slider, Text, Stack, Group, ActionIcon } from "@mantine/core";
-import { IconPlayerPlay, IconPlayerPause } from "@tabler/icons-react";
+import { Slider, Text, Stack, Group, ActionIcon } from '@mantine/core';
+import { IconPlayerPlay, IconPlayerPause } from '@tabler/icons-react';
 
 const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
 interface TimeSliderProps {
@@ -30,7 +30,7 @@ export function TimeSlider({
   onPlayToggle,
 }: TimeSliderProps) {
   const currentMonth = Math.floor(value);
-  const dayProgress = Math.round((value - currentMonth) * 30);
+  const dayOfMonth = Math.round((value - currentMonth) * 30) + 1;
 
   return (
     <Stack gap="xs">
@@ -40,13 +40,13 @@ export function TimeSlider({
         </Text>
         <Group gap="xs">
           <Text size="sm" c="dimmed">
-            {MONTHS[currentMonth]} {dayProgress > 0 ? `+${dayProgress}d` : ""}
+            {dayOfMonth} {MONTHS[currentMonth]}
           </Text>
           <ActionIcon
             variant="subtle"
             size="sm"
             onClick={onPlayToggle}
-            aria-label={isPlaying ? "Pause" : "Play"}
+            aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? (
               <IconPlayerPause size={16} />
