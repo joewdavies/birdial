@@ -1,51 +1,113 @@
 import { useEffect, useRef } from "react";
 import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import type { FeatureCollection, LineString, Point } from "geojson";
 
-export function Globe() {
+const TRACKS_SOURCE = "bird-tracks";
+const POSITIONS_SOURCE = "bird-positions";
+const TRACKS_LAYER = "bird-tracks-layer";
+const POSITIONS_LAYER = "bird-positions-layer";
+
+interface GlobeProps {
+  tracks: FeatureCollection<LineString>;
+  positions: FeatureCollection<Point>;
+}
+
+export function Globe({ tracks, positions }: GlobeProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const isMapReady = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    const mapOptions = {
+    const map = new maplibregl.Map({
       container: containerRef.current,
-      style: {
-        version: 8,
-        sources: {},
-        layers: [
-          {
-            id: "background",
-            type: "background",
-            paint: {
-              "background-color": "#0b1d2d",
-            },
-          },
-        ],
-      },
+      style:
+        //"https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json",
+        "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json",
       center: [0, 20],
-      zoom: 1.2,
-      pitch: 25,
-      bearing: 0,
-      projection: "globe",
-      antialias: true,
-    } as maplibregl.MapOptions;
-    const map = new maplibregl.Map(mapOptions);
+      attributionControl: false,
+      zoom: 2,
+    });
+
+    map.on("style.load", () => {
+      map.setProjection({ type: "globe" });
+
+      map.addSource(TRACKS_SOURCE, {
+        type: "geojson",
+        data: tracks,
+      });
+
+      map.addSource(POSITIONS_SOURCE, {
+        type: "geojson",
+        data: positions,
+      });
+
+      map.addLayer({
+        id: TRACKS_LAYER,
+        type: "line",
+        source: TRACKS_SOURCE,
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": ["get", "color"],
+          "line-width": 3,
+          "line-opacity": 0.7,
+        },
+      });
+
+      map.addLayer({
+        id: POSITIONS_LAYER,
+        type: "circle",
+        source: POSITIONS_SOURCE,
+        paint: {
+          "circle-radius": 8,
+          "circle-color": ["get", "color"],
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "#ffffff",
+        },
+      });
+
+      isMapReady.current = true;
+    });
 
     mapRef.current = map;
 
     return () => {
       map.remove();
       mapRef.current = null;
+      isMapReady.current = false;
     };
   }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isMapReady.current) return;
+
+    const tracksSource = map.getSource(
+      TRACKS_SOURCE,
+    ) as maplibregl.GeoJSONSource;
+    const positionsSource = map.getSource(
+      POSITIONS_SOURCE,
+    ) as maplibregl.GeoJSONSource;
+
+    if (tracksSource) {
+      tracksSource.setData(tracks);
+    }
+    if (positionsSource) {
+      positionsSource.setData(positions);
+    }
+  }, [tracks, positions]);
 
   return (
     <div
       ref={containerRef}
       style={{
-        flex: 1,
-        minHeight: 0,
+        position: "absolute",
+        inset: 0,
       }}
     />
   );
