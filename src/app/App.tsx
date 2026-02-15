@@ -46,7 +46,7 @@ export function App() {
   }, [isPlaying]);
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '100dvh', display: 'flex', flexDirection: 'column' }}>
       <Navbar onToggleSidebar={toggleSidebar} />
       <div style={{ flex: 1, position: 'relative' }}>
         <Globe tracks={tracks} positions={positions} />
