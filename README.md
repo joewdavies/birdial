@@ -7,7 +7,6 @@ Built with:
 - MapLibre GL (globe projection)
 - React + TypeScript
 - Mantine UI
-- High-performance animation loops
 
 ## Development
 
