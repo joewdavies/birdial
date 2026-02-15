@@ -1,19 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Navbar } from "../components/navbar/Navbar";
-import { Globe } from "../components/globe/Globe";
-import { Sidebar } from "../components/sidebar/Sidebar";
-import { TimeControl } from "../components/controls/TimeControl";
-import { Legend } from "../components/controls/Legend";
-import { birds, getDefaultVisibility } from "../data/birds";
-import { useBirdMigrations } from "../hooks/useBirdMigrations";
+import { useState, useEffect, useCallback } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import { Navbar } from '../components/navbar/Navbar';
+import { Globe } from '../components/globe/Globe';
+import { Sidebar } from '../components/sidebar/Sidebar';
+import { TimeControl } from '../components/controls/TimeControl';
+import { Legend } from '../components/controls/Legend';
+import { birds, getDefaultVisibility } from '../data/birds';
+import { useBirdMigrations } from '../hooks/useBirdMigrations';
 
 export function App() {
   const [visibility, setVisibility] = useState(getDefaultVisibility);
   const [monthProgress, setMonthProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [sidebarOpen, { toggle: toggleSidebar, close: closeSidebar }] =
-    useDisclosure(true);
+    useDisclosure(false);
 
   const { tracks, positions } = useBirdMigrations(
     birds,
@@ -46,9 +46,9 @@ export function App() {
   }, [isPlaying]);
 
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar onToggleSidebar={toggleSidebar} />
-      <div style={{ flex: 1, position: "relative" }}>
+      <div style={{ flex: 1, position: 'relative' }}>
         <Globe tracks={tracks} positions={positions} />
         <Sidebar
           birds={birds}
